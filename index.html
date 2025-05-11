@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataoorts - GPU Облачные вычисления для России | GPU Cloud in Russia - H100, H200, A100, RTX A6000, RTX 4000</title>
+    <meta name="description" content="Высокопроизводительные облачные GPU решения в России. Мгновенное развертывание NVIDIA H100, H200, A100 80GB, RTX A6000 и RTX 4000 по конкурентным ценам.">
+    <meta name="keywords" content="GPU облако Россия, H100 облако, H200 облако, A100 80GB облако, RTX A6000 облако, RTX 4000 облако, Российские GPU серверы, ИИ облачные вычисления Россия, Dataoorts">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb', // Blue-600
+                        'primary-dark': '#1d4ed8', // Blue-700
+                        dark: '#1e293b',    // Slate-800
+                        accent: '#7c3aed',   // Violet-600
+                        light: '#f8fafc',   // Slate-50
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            scroll-behavior: smooth;
+        }
+        .language-switcher {
+            transition: all 0.3s ease;
+        }
+        .language-switcher:hover {
+            transform: scale(1.05);
+        }
+        .gpu-card, .pricing-card, .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        .gpu-card:hover, .pricing-card:hover, .testimonial-card:hover { /* Simplified hover for pricing cards */
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); /* shadow-xl */
+        }
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2563eb;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .animated-hero-bg {
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+            background-image: linear-gradient(-45deg, #2563eb, #3b82f6, #7c3aed, #8b5cf6, #2563eb);
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .section-title { /* Applied to H2 */
+            @apply text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl;
+        }
+        .section-subtitle { /* Applied to P */
+            @apply text-base text-primary font-semibold tracking-wide uppercase;
+        }
+        .btn {
+            @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm transition duration-150 ease-in-out;
+        }
+        .btn-primary {
+            @apply bg-primary text-white hover:bg-primary-dark;
+        }
+        .btn-secondary {
+            @apply bg-white text-primary hover:bg-gray-50 border-gray-300;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-light">
+    <!-- Language Switcher -->
+    <div class="fixed top-4 right-4 z-50">
+        <div class="flex space-x-2">
+            <button id="en-btn" class="language-switcher bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold shadow-lg">EN</button>
+            <button id="ru-btn" class="language-switcher bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">RU</button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center">
+                    <a href="https://dataoorts.com" class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-primary">Dataoorts</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="https://russia.dataoorts.com" class="nav-link text-gray-900" data-i18n="nav.home">Cloud</a>
+                    <a href="https://dataoorts.com" class="nav-link text-gray-500 hover:text-gray-900" data-i18n="nav.features">Features</a>
+                    <a href="https://dataoorts.com/gpu" class="nav-link text-gray-500 hover:text-gray-900" data-i18n="nav.gpus">GPUs</a>
+                    <a href="https://dataoorts.com/pricing" class="nav-link text-gray-500 hover:text-gray-900" data-i18n="nav.pricing">Pricing</a>
+                    <a href="https://dataoorts.com/contact" class="nav-link text-gray-500 hover:text-gray-900" data-i18n="nav.contact">Contact</a>
+                </div>
+                <div class="hidden md:ml-4 md:flex md:items-center md:space-x-4">
+                    <a href="https://cloud.dataoorts.com" class="text-gray-500 hover:text-primary px-3 py-2 rounded-md text-sm font-medium" data-i18n="nav.login">Login</a>
+                    <a href="https://cloud.dataoorts.com/register" class="btn btn-primary text-sm" data-i18n="nav.signup">Sign Up</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-expanded="false">
+                        <span class="sr-only">Menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                         <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu-items">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="https://dataoorts.com" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50" data-i18n="nav.home">Cloud</a>
+                <a href="https://dataoorts.com/gc2" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50" data-i18n="nav.features">Features</a>
+                <a href="https://dataoorts.com/gpu" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50" data-i18n="nav.gpus">GPUs</a>
+                <a href="https://dataoorts.com/pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50" data-i18n="nav.pricing">Pricing</a>
+                <a href="https://dataoorts.com/contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50" data-i18n="nav.contact">Contact</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200">
+                <div class="px-2 space-y-1">
+                    <a href="https://cloud.dataoorts.com" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50" data-i18n="nav.login">Login</a>
+                    <a href="https://cloud.dataoorts.com/register" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white bg-primary hover:bg-primary-dark" data-i18n="nav.signup">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="animated-hero-bg text-white relative">
+        <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight" data-i18n="hero.title">GPU Cloud for AI & HPC - Russia</h1>
+                <p class="mt-6 max-w-3xl mx-auto text-xl text-blue-100" data-i18n="hero.subtitle">Deploy NVIDIA's latest H200, H100, A100-80GB, RTX A6000 and RTX 4000 GPUs in seconds with our high-performance cloud infrastructure by Dataoorts</p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="https://cloud.dataoorts.com/register" class="btn bg-white text-primary hover:bg-gray-100 text-lg px-8 py-4" data-i18n="hero.cta1">Start Free Trial</a>
+                    <a href="https://dataoorts.com/pricing" class="btn bg-white bg-opacity-20 text-white hover:bg-opacity-30 text-lg px-8 py-4" data-i18n="hero.cta2">View Pricing</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trusted By Section -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-xl font-semibold text-gray-700 tracking-wider" data-i18n="trusted.title">Trusted by more than 10K developers globally and in Russia.</p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-20 bg-light overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <p class="section-subtitle" data-i18n="features.subtitle">Features</p>
+                <h2 class="mt-2 section-title" data-i18n="features.title">Why Choose Our GPU Cloud</h2>
+            </div>
+            <!-- Features Section -->
+            <div class="mt-20">
+                <div class="space-y-12 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-12">
+                    <div class="relative">
+                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-bolt text-2xl"></i>
+                        </div>
+                        <div class="ml-16">
+                            <h3 class="text-xl leading-6 font-bold text-gray-900" data-i18n="features.1.title">Ultra-Fast Deployment</h3>
+                            <p class="mt-2 text-base text-gray-600" data-i18n="features.1.desc">Launch GPU instances in under 60 seconds with our optimized infrastructure and ready-to-use templates DMI.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-globe-americas text-2xl"></i>
+                        </div>
+                        <div class="ml-16">
+                            <h3 class="text-xl leading-6 font-bold text-gray-900" data-i18n="features.2.title">Global Data Centers</h3>
+                            <p class="mt-2 text-base text-gray-600" data-i18n="features.2.desc">Headquartered in India with secure data centers in India and Europe.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-tachometer-alt text-2xl"></i>
+                        </div>
+                        <div class="ml-16">
+                            <h3 class="text-xl leading-6 font-bold text-gray-900" data-i18n="features.3.title">High Performance</h3>
+                            <p class="mt-2 text-base text-gray-600" data-i18n="features.3.desc">Low-latency NVLink connections between GPUs and high-speed networking for distributed workloads.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-lg bg-primary text-white">
+                            <i class="fas fa-cogs text-2xl"></i>
+                        </div>
+                        <div class="ml-16">
+                            <h3 class="text-xl leading-6 font-bold text-gray-900" data-i18n="features.4.title">Flexible Configurations</h3>
+                            <p class="mt-2 text-base text-gray-600" data-i18n="features.4.desc">Mix and match GPUs, CPUs, RAM and storage to create the perfect configuration for your workload.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GPU Showcase Section -->
+    <div id="gpus" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                 <p class="section-subtitle" data-i18n="gpus.subtitle">NVIDIA GPUs</p>
+                <h2 class="mt-2 section-title" data-i18n="gpus.title">Latest GPU Accelerators</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto" data-i18n="gpus.desc">Choose from our range of powerful NVIDIA GPUs optimized for AI, HPC, LLM Training to Fine-tuning, rendering and more</p>
+            </div>
+
+            <div class="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <!-- H100 Card -->
+                <div class="gpu-card bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                    <div class="p-8 flex-grow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-lg p-4">
+                                <i class="fas fa-microchip text-3xl"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-xl font-bold text-gray-900">NVIDIA H100</h3>
+                                <p class="text-sm text-gray-500" data-i18n="gpus.h100.specs">80GB PCIe | 4.8TB/s bandwidth</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.h100.1">Transformer Engine for 9x faster AI training</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.h100.2">4th Gen NVLink at 900GB/s</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.h100.3">DPX instructions for dynamic programming</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-8 py-5">
+                        <a href="https://dataoorts.com/pricing" class="font-medium text-primary hover:text-primary-dark transition duration-150" data-i18n="gpus.viewpricing">View Pricing <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+
+                <!-- H200 Card -->
+                <div class="gpu-card bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                     <div class="p-8 flex-grow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-purple-100 text-purple-600 rounded-lg p-4">
+                                <i class="fas fa-brain text-3xl"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-xl font-bold text-gray-900">NVIDIA H200</h3>
+                                <p class="text-sm text-gray-500" data-i18n="gpus.h200.specs">141GB HBM3 | 4.8TB/s bandwidth</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.h200.1">1.8x faster than H100 for LLM inference</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.h200.2">HBM3 memory with 141GB capacity</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.h200.3">Optimized for large language models</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-8 py-5">
+                        <a href="https://dataoorts.com/pricing" class="font-medium text-primary hover:text-primary-dark transition duration-150" data-i18n="gpus.viewpricing">View Pricing <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+                
+                <!-- A100 Card -->
+                 <div class="gpu-card bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                     <div class="p-8 flex-grow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-green-100 text-green-600 rounded-lg p-4">
+                                <i class="fas fa-rocket text-3xl"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-xl font-bold text-gray-900">NVIDIA A100 80GB</h3>
+                                <p class="text-sm text-gray-500" data-i18n="gpus.a100_80gb.specs">80GB PCIe | 2TB/s bandwidth</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.a100.1">3rd Gen Tensor Cores</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.a100.2">Multi-Instance GPU (MIG) technology</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.a100.3">Industry standard for AI workloads</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-8 py-5">
+                        <a href="https://dataoorts.com/pricing" class="font-medium text-primary hover:text-primary-dark transition duration-150" data-i18n="gpus.viewpricing">View Pricing <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+
+                <!-- RTX A6000 Card -->
+                <div class="gpu-card bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                     <div class="p-8 flex-grow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-teal-100 text-teal-600 rounded-lg p-4">
+                                <i class="fas fa-desktop text-3xl"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-xl font-bold text-gray-900" data-i18n="gpus.rtxa6000.name">NVIDIA RTX A6000</h3>
+                                <p class="text-sm text-gray-500" data-i18n="gpus.rtxa6000.specs">48GB GDDR6 | 768GB/s bandwidth</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.rtxa6000.1">Powerful professional graphics</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.rtxa6000.2">Ideal for rendering, simulation, and AI</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.rtxa6000.3">Large 48GB VRAM for complex datasets</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-8 py-5">
+                        <a href="https://dataoorts.com/pricing" class="font-medium text-primary hover:text-primary-dark transition duration-150" data-i18n="gpus.viewpricing">View Pricing <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+                
+                <!-- RTX 4000 Card -->
+                <div class="gpu-card bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 flex flex-col">
+                     <div class="p-8 flex-grow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-red-100 text-red-600 rounded-lg p-4">
+                                <i class="fas fa-paint-brush text-3xl"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-xl font-bold text-gray-900">NVIDIA RTX 4000</h3>
+                                <p class="text-sm text-gray-500" data-i18n="gpus.rtx4000.specs">24GB GDDR6 | 448GB/s bandwidth</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.rtx4000.1_vram">24GB GDDR6 VRAM</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.rtx4000.2">Cost-effective for design and CAD</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <p class="text-sm text-gray-700" data-i18n="gpus.rtx4000.3">Ada Lovelace Architecture</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-8 py-5">
+                        <a href="https://dataoorts.com/pricing" class="font-medium text-primary hover:text-primary-dark transition duration-150" data-i18n="gpus.viewpricing">View Pricing <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+
+                <!-- Custom Config Card -->
+                 <div class="gpu-card bg-slate-800 text-white rounded-xl shadow-lg overflow-hidden border border-gray-700 flex flex-col">
+                     <div class="p-8 flex-grow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-slate-700 text-slate-300 rounded-lg p-4">
+                                <i class="fas fa-sliders-h text-3xl"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-xl font-bold text-white" data-i18n="gpus.custom.title">Custom Configuration</h3>
+                                <p class="text-sm text-slate-400" data-i18n="gpus.custom.desc">Build your perfect GPU setup</p>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                    <p class="text-sm text-slate-300" data-i18n="gpus.custom.1">Mix different GPU models</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                    <p class="text-sm text-slate-300" data-i18n="gpus.custom.2">Choose CPU, RAM and storage</p>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                                    <p class="text-sm text-slate-300" data-i18n="gpus.custom.3">Dedicated networking options</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-slate-700 px-8 py-5">
+                        <a href="https://tally.so/r/nrkBjL" class="font-medium text-blue-400 hover:text-blue-300 transition duration-150" data-i18n="gpus.custom.contact">Contact Sales <span aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="py-20 bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="section-subtitle" data-i18n="pricing.subtitle">Pricing</p>
+                <h2 class="mt-2 section-title" data-i18n="pricing.title">Simple, Transparent Pricing</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto" data-i18n="pricing.desc_hourly">Pay only for what you use with per-hour billing. Discounts available for long-term commitments.</p>
+            </div>
+
+            <div class="mt-16">
+                <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                    <!-- H100 Pricing -->
+                    <div class="pricing-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="px-6 py-8 flex-grow">
+                            <h3 class="text-2xl font-bold text-gray-900" data-i18n="pricing.h100.title">NVIDIA H100</h3>
+                            <div class="mt-4 flex items-baseline">
+                                <span class="text-5xl font-extrabold text-gray-900" id="h100-price">$2.20</span>
+                                <span class="ml-1 text-xl font-medium text-gray-500" id="h100-period" data-i18n="pricing.period.hourly">/hour</span>
+                            </div>
+                            <p class="mt-5 text-base text-gray-600" data-i18n="pricing.h100.desc">Most powerful AI accelerator</p>
+                            <ul class="mt-6 space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.h100.1">80GB PCIe</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.h100.2">4.8TB/s Memory Bandwidth</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.h100.3">Transformer Engine</p></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-6">
+                            <a href="https://cloud.dataoorts.com/register" class="btn btn-primary w-full" data-i18n="pricing.deploy">Deploy Now</a>
+                        </div>
+                    </div>
+
+                    <!-- H200 Pricing (Normal) -->
+                    <div class="pricing-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="px-6 py-8 flex-grow">
+                            <h3 class="text-2xl font-bold text-gray-900" data-i18n="pricing.h200.title">NVIDIA H200</h3>
+                            <div class="mt-4 flex items-baseline">
+                                <span class="text-5xl font-extrabold text-gray-900" id="h200-price">$2.40</span>
+                                <span class="ml-1 text-xl font-medium text-gray-500" id="h200-period" data-i18n="pricing.period.hourly">/hour</span>
+                            </div>
+                            <p class="mt-5 text-base text-gray-600" data-i18n="pricing.h200.desc">Best for large language models</p>
+                             <ul class="mt-6 space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.h200.1">141GB HBM3 Memory</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.h200.2">4.8TB/s Memory Bandwidth</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.h200.3">1.8x faster than H100</p></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-6">
+                            <a href="https://cloud.dataoorts.com/register" class="btn btn-primary w-full" data-i18n="pricing.deploy">Deploy Now</a>
+                        </div>
+                    </div>
+
+                    <!-- A100 80GB Pricing -->
+                    <div class="pricing-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="px-6 py-8 flex-grow">
+                            <h3 class="text-2xl font-bold text-gray-900" data-i18n="pricing.a100_80gb.title">NVIDIA A100 80GB</h3>
+                            <div class="mt-4 flex items-baseline">
+                                <span class="text-5xl font-extrabold text-gray-900" id="a100-price">$1.60</span>
+                                <span class="ml-1 text-xl font-medium text-gray-500" id="a100-period" data-i18n="pricing.period.hourly">/hour</span>
+                            </div>
+                            <p class="mt-5 text-base text-gray-600" data-i18n="pricing.a100_80gb.desc">Industry standard for AI (80GB)</p>
+                            <ul class="mt-6 space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.a100_80gb.1">80GB PCIe</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.a100_80gb.2">2TB/s Memory Bandwidth</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.a100_80gb.3">MIG Technology</p></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-6">
+                            <a href="https://cloud.dataoorts.com/register" class="btn btn-primary w-full" data-i18n="pricing.deploy">Deploy Now</a>
+                        </div>
+                    </div>
+
+                    <!-- RTX A6000 Pricing -->
+                    <div class="pricing-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="px-6 py-8 flex-grow">
+                            <h3 class="text-2xl font-bold text-gray-900" data-i18n="pricing.rtxa6000.title">NVIDIA RTX A6000</h3>
+                            <div class="mt-4 flex items-baseline">
+                                <span class="text-5xl font-extrabold text-gray-900" id="rtxa6000-price">$0.60</span>
+                                <span class="ml-1 text-xl font-medium text-gray-500" id="rtxa6000-period" data-i18n="pricing.period.hourly">/hour</span>
+                            </div>
+                            <p class="mt-5 text-base text-gray-600" data-i18n="pricing.rtxa6000.desc">Pro-grade graphics & compute</p>
+                            <ul class="mt-6 space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.1">48GB  VRAM</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.2">768GB/s Memory Bandwidth</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.3">Perfect for creators & engineers</p></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-6">
+                            <a href="https://cloud.dataoorts.com/register" class="btn btn-primary w-full" data-i18n="pricing.deploy">Deploy Now</a>
+                        </div>
+                    </div>
+
+                    <!-- RTX 4000 Pricing -->
+                    <div class="pricing-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                        <div class="px-6 py-8 flex-grow">
+                            <h3 class="text-2xl font-bold text-gray-900" data-i18n="pricing.rtx4000.title">NVIDIA RTX 4000</h3>
+                            <div class="mt-4 flex items-baseline">
+                                <span class="text-5xl font-extrabold text-gray-900" id="rtx4000-price">$0.18</span>
+                                <span class="ml-1 text-xl font-medium text-gray-500" id="rtx4000-period" data-i18n="pricing.period.hourly">/hour</span>
+                            </div>
+                            <p class="mt-5 text-base text-gray-600" data-i18n="pricing.rtx4000.desc">Cost-effective for design</p>
+                            <ul class="mt-6 space-y-3">
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtx4000.1_vram">24GB VRAM</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtx4000.2">448GB/s Memory Bandwidth</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtx4000.3">Ada Lovelace Architecture</p></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-6">
+                            <a href="https://cloud.dataoorts.com/register" class="btn btn-primary w-full" data-i18n="pricing.deploy">Deploy Now</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Full Pricing Link -->
+                    <div class="pricing-card bg-slate-100 rounded-xl shadow-lg overflow-hidden flex items-center justify-center border-2 border-dashed border-slate-300 hover:border-primary">
+                        <div class="px-6 py-8 text-center">
+                            <i class="fas fa-tags text-4xl text-primary mb-4"></i>
+                            <h3 class="text-2xl font-bold text-gray-900" data-i18n="pricing.full.title">Full Pricing Details</h3>
+                            <p class="mt-4 text-base text-gray-600" data-i18n="pricing.full.desc">See all configurations and options</p>
+                            <div class="mt-6">
+                                <a href="https://dataoorts.com/pricing" class="btn btn-secondary" data-i18n="pricing.full.link">View Complete Pricing</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <p class="section-subtitle" data-i18n="testimonials.title">Testimonials</p>
+                <h2 class="mt-2 section-title" data-i18n="testimonials.subtitle">What Our Customers Say</h2>
+            </div>
+
+            <div class="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-light p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-14 w-14 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold">AP</div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold text-gray-900">Alexei Petrov</h4>
+                            <p class="text-sm text-gray-500">AI Researcher</p>
+                        </div>
+                    </div>
+                    <blockquote class="mt-6 text-gray-600 italic relative">
+                        <p class="before:content-['\“'] before:absolute before:left-[-0.7em] before:top-[-0.1em] before:text-5xl before:text-gray-200 before:font-serif after:content-['\”'] after:absolute after:right-[-0.4em] after:bottom-[-0.5em] after:text-5xl after:text-gray-200 after:font-serif" data-i18n="testimonials.1">The H100 instances have significantly reduced our model training time. Dataoorts' infrastructure and support were crucial for our project needs.</p>
+                    </blockquote>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-light p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center">
+                         <div class="flex-shrink-0 h-14 w-14 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">ES</div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold text-gray-900">Elena Smirnova</h4>
+                            <p class="text-sm text-gray-500">VFX Artist</p>
+                        </div>
+                    </div>
+                     <blockquote class="mt-6 text-gray-600 italic relative">
+                        <p class="before:content-['\“'] before:absolute before:left-[-0.7em] before:top-[-0.1em] before:text-5xl before:text-gray-200 before:font-serif after:content-['\”'] after:absolute after:right-[-0.4em] after:bottom-[-0.5em] after:text-5xl after:text-gray-200 after:font-serif" data-i18n="testimonials.2">We switched all our rendering to Dataoorts' RTX A6000 instances. The performance is outstanding and their support team is very responsive.</p>
+                    </blockquote>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card bg-light p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-14 w-14 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xl font-bold">DI</div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold text-gray-900">Dmitri Ivanov</h4>
+                            <p class="text-sm text-gray-500">Lead Developer</p>
+                        </div>
+                    </div>
+                    <blockquote class="mt-6 text-gray-600 italic relative">
+                        <p class="before:content-['\“'] before:absolute before:left-[-0.7em] before:top-[-0.1em] before:text-5xl before:text-gray-200 before:font-serif after:content-['\”'] after:absolute after:right-[-0.4em] after:bottom-[-0.5em] after:text-5xl after:text-gray-200 after:font-serif" data-i18n="testimonials.3">The ability to quickly scale up with H200 GPUs for our LLM inference has been game-changing. Dataoorts provides excellent price/performance.</p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-primary">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8 lg:flex lg:items-center lg:justify-between">
+            <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                <span class="block" data-i18n="cta.ready">Ready to get started?</span>
+                <span class="block text-blue-200" data-i18n="cta.signup">Sign up for your free trial today.</span>
+            </h2>
+            <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+                <a href="https://cloud.dataoorts.com/register" class="btn bg-white text-primary hover:bg-gray-100 px-8 py-3" data-i18n="cta.button">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="py-20 bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <p class="section-subtitle" data-i18n="contact.title">Contact</p>
+                <h2 class="mt-2 section-title" data-i18n="contact.subtitle">Get In Touch</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto" data-i18n="contact.desc">Have questions about our GPU cloud services? Our team is here to help.</p>
+            </div>
+
+            <div class="mt-16 grid gap-10 md:grid-cols-2">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900" data-i18n="contact.form.sales_title">Sales Inquiries</h3>
+                    <p class="mt-2 text-base text-gray-600" data-i18n="contact.form.sales_desc">For sales questions, please use the form below:</p>
+                    <div class="mt-6">
+                         <iframe src="https://tally.so/embed/nrkBjL?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                                 loading="lazy" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0" 
+                                 title="Contact Sales - Dataoorts" style="border-radius: 8px;"></iframe>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900" data-i18n="contact.info.title">Contact Information</h3>
+                    <div class="mt-6 space-y-6">
+                         <div class="flex items-start">
+                           <i class="fas fa-headset text-primary text-xl mt-1"></i>
+                            <div class="ml-4 text-base text-gray-600">
+                                <p data-i18n="contact.info.support_email_intro">Technical Support:</p>
+                                <a href="mailto:help@dataoorts.com" class="hover:text-primary font-semibold">help@dataoorts.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                           <i class="fas fa-envelope text-primary text-xl mt-1"></i>
+                            <div class="ml-4 text-base text-gray-600">
+                                <p data-i18n="contact.info.general_email_intro">General Inquiries:</p>
+                                <a href="mailto:support@dataoorts.com" class="hover:text-primary font-semibold">aradhya@dataoorts.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-phone-alt text-primary text-xl mt-1"></i>
+                            <div class="ml-4 text-base text-gray-600">
+                                <p data-i18n="contact.info.phone">07985000709</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary text-xl mt-1"></i>
+                            <div class="ml-4 text-base text-gray-600">
+                                <p data-i18n="contact.info.address">Prayagraj, India - 211013</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <p class="section-subtitle" data-i18n="faq.title">FAQ</p>
+                <h2 class="mt-2 section-title" data-i18n="faq.subtitle">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="mt-16">
+                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-12">
+                    <div>
+                        <dt class="text-lg leading-6 font-semibold text-gray-900" data-i18n="faq.1.question">Where are your data centers located?</dt>
+                        <dd class="mt-2 text-base text-gray-600" data-i18n="faq.1.answer">Our primary data centers are located in India and Europe, ensuring robust global coverage—security and privacy are always at top for our users.</dd>
+                    </div>
+                    <div>
+                        <dt class="text-lg leading-6 font-semibold text-gray-900" data-i18n="faq.2.question">What payment methods do you accept?</dt>
+                        <dd class="mt-2 text-base text-gray-600" data-i18n="faq.2.answer">We accept all major Credit/Debit cards, <strong>cryptocurrency payments</strong>, PayPal, UPI, and Bank-Transfer.</dd>
+                    </div>
+                    <div>
+                        <dt class="text-lg leading-6 font-semibold text-gray-900" data-i18n="faq.3.question">Can I get a discount for long-term usage?</dt>
+                        <dd class="mt-2 text-base text-gray-600" data-i18n="faq.3.answer">Yes, we offer significant discounts for reserved instances with 6-Months, 1-year, or 3-year commitments. Contact our sales team for custom pricing.</dd>
+                    </div>
+                    <div>
+                        <dt class="text-lg leading-6 font-semibold text-gray-900" data-i18n="faq.4.question">How quickly can I deploy GPU instances?</dt>
+                        <dd class="mt-2 text-base text-gray-600" data-i18n="faq.4.answer">Most GPU instances are available for deployment within 90 seconds through our web console or API.</dd>
+                    </div>
+                    <div>
+                        <dt class="text-lg leading-6 font-semibold text-gray-900" data-i18n="faq.5.question">What operating systems do you support?</dt>
+                        <dd class="mt-2 text-base text-gray-600" data-i18n="faq.5.answer">We support Ubuntu, CentOS, Windows Server, and specialized AI/ML images with pre-installed drivers and frameworks.</dd>
+                    </div>
+                    <div>
+                        <dt class="text-lg leading-6 font-semibold text-gray-900" data-i18n="faq.6.question">Is technical support available?</dt>
+                        <dd class="mt-2 text-base text-gray-600" data-i18n="faq.6.answer">Yes, we provide 24/7 technical support via email (help@dataoorts.com), chat, and phone for all users.</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-gray-400">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase" data-i18n="footer.product">Product</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li><a href="https://cloud.dataoorts.com" class="text-base hover:text-white transition" data-i18n="footer.product1">GPU Cloud</a></li>
+                        <li><a href="https://dataoorts.com/pricing" class="text-base hover:text-white transition" data-i18n="footer.product2">Pricing</a></li>
+                        <li><a href="https://dataoorts.com/ai" class="text-base hover:text-white transition" data-i18n="footer.product3">Features</a></li>
+                        <li><a href="https://cloud.dataoorts.com" class="text-base hover:text-white transition" data-i18n="footer.product4">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase" data-i18n="footer.resources">Resources</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li><a href="https://docs.dataoorts.com" class="text-base hover:text-white transition" data-i18n="footer.resources1">Documentation</a></li>
+                        <li><a href="https://docs.dataoorts.com" class="text-base hover:text-white transition" data-i18n="footer.resources2">Guides</a></li>
+                        <li><a href="https://blog.dataoorts.com" class="text-base hover:text-white transition" data-i18n="footer.resources3">Blog</a></li>
+                        <li><a href="https://cloud.dataoorts.com/register" class="text-base hover:text-white transition" data-i18n="footer.resources4">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase" data-i18n="footer.company">Company</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li><a href="https://dataoorts.com/about-us" class="text-base hover:text-white transition" data-i18n="footer.company1">About</a></li>
+                        <li><a href="https://dataoorts.com/ai" class="text-base hover:text-white transition" data-i18n="footer.company2">Careers</a></li>
+                        <li><a href="https://dataoorts.com/contact" class="text-base hover:text-white transition" data-i18n="footer.company3">Partnership</a></li>
+                        <li><a href="https://dataoorts.com/contact" class="text-base hover:text-white transition" data-i18n="footer.company4">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase" data-i18n="footer.legal">Legal</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li><a href="https://dataoorts.com/privacy-policy" class="text-base hover:text-white transition" data-i18n="footer.legal1">Privacy</a></li>
+                        <li><a href="https://dataoorts.com/terms-of-service" class="text-base hover:text-white transition" data-i18n="footer.legal2">Terms</a></li>
+                        <li><a href="https://dataoorts.com/privacy-policy" class="text-base hover:text-white transition" data-i18n="footer.legal3">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 text-center">
+                <p class="text-base" data-i18n="footer.copyright">© <span id="copyright-year-val">YEAR_PLACEHOLDER</span> Dataoorts. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language data
+        const translations = {
+            en: {
+                "nav.home": "Cloud",
+                "nav.features": "Features",
+                "nav.gpus": "GPUs",
+                "nav.pricing": "Pricing",
+                "nav.contact": "Contact",
+                "nav.login": "Login",
+                "nav.signup": "Sign Up",
+                "hero.title": "GPU Cloud for AI & HPC in Russia",
+                "hero.subtitle": "Deploy NVIDIA's latest H100, H200, A100 80GB, RTX A6000 and RTX 4000 GPUs in seconds with our high-performance cloud infrastructure by Dataoorts",
+                "hero.cta1": "Start Free Trial",
+                "hero.cta2": "View Pricing",
+                "trusted.title": "Trusted by more than 10K developers globally and in Russia.",
+                "features.subtitle": "Features",
+                "features.title": "Why Choose Our GPU Cloud",
+                "features.1.title": "Ultra-Fast Deployment",
+                "features.1.desc": "Launch GPU instances in under 60 seconds with our optimized infrastructure and ready-to-use templates.",
+                "features.2.title": "Global Data Centers",
+                "features.2.desc": "Headquartered in India with secure data centers in India and Europe.",
+                "features.3.title": "High Performance",
+                "features.3.desc": "Low-latency NVLink connections between GPUs and high-speed networking for distributed workloads.",
+                "features.4.title": "Flexible Configurations",
+                "features.4.desc": "Mix and match GPUs, CPUs, RAM and storage to create the perfect configuration for your workload.",
+                "gpus.subtitle": "NVIDIA GPUs",
+                "gpus.title": "Latest GPU Accelerators",
+                "gpus.desc": "Choose from our range of powerful NVIDIA GPUs optimized for AI, HPC, rendering and more",
+                "gpus.h100.specs": "80GB PCIe | 4.8TB/s bandwidth",
+                "gpus.h100.1": "Transformer Engine for 9x faster AI training",
+                "gpus.h100.2": "4th Gen NVLink at 900GB/s",
+                "gpus.h100.3": "DPX instructions for dynamic programming",
+                "gpus.h200.specs": "141GB HBM3 | 4.8TB/s bandwidth",
+                "gpus.h200.1": "1.8x faster than H100 for LLM inference",
+                "gpus.h200.2": "HBM3 memory with 141GB capacity",
+                "gpus.h200.3": "Optimized for large language models",
+                "gpus.a100_80gb.specs": "80GB PCIe | 2TB/s bandwidth",
+                "gpus.a100.1": "3rd Gen Tensor Cores", 
+                "gpus.a100.2": "Multi-Instance GPU (MIG) technology", 
+                "gpus.a100.3": "Industry standard for AI workloads", 
+                "gpus.rtxa6000.name": "NVIDIA RTX A6000",
+                "gpus.rtxa6000.specs": "48GB VRAM | 768GB/s bandwidth",
+                "gpus.rtxa6000.1": "Powerful professional graphics",
+                "gpus.rtxa6000.2": "Ideal for rendering, simulation, and AI",
+                "gpus.rtxa6000.3": "Large 48GB VRAM for complex datasets",
+                "gpus.rtx4000.specs": "24GB VRAM | 448GB/s bandwidth",
+                "gpus.rtx4000.1_vram": "24GB VRAM",
+                "gpus.rtx4000.2": "Cost-effective for design and CAD",
+                "gpus.rtx4000.3": "Ada Lovelace Architecture",
+                "gpus.custom.title": "Custom Configuration",
+                "gpus.custom.desc": "Build your perfect GPU setup",
+                "gpus.custom.1": "Mix different GPU models",
+                "gpus.custom.2": "Choose CPU, RAM and storage",
+                "gpus.custom.3": "Dedicated networking options",
+                "gpus.custom.contact": "Contact Sales",
+                "gpus.viewpricing": "View Pricing",
+                "pricing.subtitle": "Pricing",
+                "pricing.title": "Simple, Transparent Pricing",
+                "pricing.desc_hourly": "Pay only for what you use with per-hour billing. Discounts available for long-term commitments.",
+                "pricing.period.hourly": "/hour",
+                "pricing.h100.title": "NVIDIA H100",
+                "pricing.h100.desc": "Most powerful AI accelerator",
+                "pricing.h100.1": "80GB PCIe Memory",
+                "pricing.h100.2": "4.8TB/s Memory Bandwidth",
+                "pricing.h100.3": "Transformer Engine",
+                "pricing.h200.title": "NVIDIA H200",
+                "pricing.h200.desc": "Best for large language models",
+                "pricing.h200.1": "141GB HBM3 Memory",
+                "pricing.h200.2": "4.8TB/s Memory Bandwidth",
+                "pricing.h200.3": "1.8x faster than H100",
+                "pricing.a100_80gb.title": "NVIDIA A100 80GB",
+                "pricing.a100_80gb.desc": "Industry standard for AI (80GB)",
+                "pricing.a100_80gb.1": "80GB PCIe Memory",
+                "pricing.a100_80gb.2": "2TB/s Memory Bandwidth",
+                "pricing.a100_80gb.3": "MIG Technology",
+                "pricing.rtxa6000.title": "NVIDIA RTX A6000",
+                "pricing.rtxa6000.desc": "Pro-grade graphics & compute",
+                "pricing.rtxa6000.1": "48GB VRAM",
+                "pricing.rtxa6000.2": "768GB/s Memory Bandwidth",
+                "pricing.rtxa6000.3": "Perfect for creators & engineers",
+                "pricing.rtx4000.title": "NVIDIA RTX 4000",
+                "pricing.rtx4000.desc": "Cost-effective for design",
+                "pricing.rtx4000.1_vram": "24GB VRAM",
+                "pricing.rtx4000.2": "448GB/s Memory Bandwidth",
+                "pricing.rtx4000.3": "Ada Lovelace Architecture",
+                "pricing.deploy": "Deploy Now",
+                "pricing.full.title": "Full Pricing Details",
+                "pricing.full.desc": "See all configurations and options",
+                "pricing.full.link": "View Complete Pricing",
+                "testimonials.title": "Testimonials",
+                "testimonials.subtitle": "What Our Customers Say",
+                "testimonials.1": "\"The H100 instances have significantly reduced our model training time. Dataoorts' infrastructure and support were crucial for our project needs.\"",
+                "testimonials.2": "\"We switched all our rendering to Dataoorts' RTX A6000 instances. The performance is outstanding and their support team is very responsive.\"",
+                "testimonials.3": "\"The ability to quickly scale up with H200 GPUs for our LLM Fine-tuning has been game-changing. Dataoorts provides excellent price/performance.\"",
+                "cta.ready": "Ready to get started?",
+                "cta.signup": "Sign up for your free trial today.",
+                "cta.button": "Get Started",
+                "contact.title": "Contact",
+                "contact.subtitle": "Get In Touch",
+                "contact.desc": "Have questions about our GPU cloud services? Our team is here to help.",
+                "contact.form.sales_title": "Sales Inquiries",
+                "contact.form.sales_desc": "For sales questions, please use the form below:",
+                "contact.info.title": "Contact Information",
+                "contact.info.support_email_intro": "Technical Support:",
+                "contact.info.general_email_intro": "General Inquiries:",
+                "contact.info.phone": "07985000709",
+                "contact.info.address": "Prayagraj, India - 211013",
+                "faq.title": "FAQ",
+                "faq.subtitle": "Frequently Asked Questions",
+                "faq.1.question": "Where are your data centers located?",
+                "faq.1.answer": "Our primary data centers are located in India and Europe, ensuring robust global coverage.",
+                "faq.2.question": "What payment methods do you accept?",
+                "faq.2.answer": "We accept all major credit cards, <strong>cryptocurrency payments</strong>, PayPal, UPI, and bank transfer.",
+                "faq.3.question": "Can I get a discount for long-term usage?",
+                "faq.3.answer": "Yes, we offer significant discounts for reserved instances with 1-year or 3-year commitments. Contact our sales team for custom pricing.",
+                "faq.4.question": "How quickly can I deploy GPU instances?",
+                "faq.4.answer": "Most GPU instances are available for deployment within 60 seconds through our web console or API.",
+                "faq.5.question": "What operating systems do you support?",
+                "faq.5.answer": "We support Ubuntu, CentOS, Windows Server, and specialized AI/ML images with pre-installed drivers and frameworks.",
+                "faq.6.question": "Is technical support available?",
+                "faq.6.answer": "Yes, we provide 24/7 technical support in English and Russian via email (help@dataoorts.com), chat, and phone for all customers.",
+                "footer.product": "Product",
+                "footer.product1": "GPU Cloud",
+                "footer.product2": "Pricing",
+                "footer.product3": "Features",
+                "footer.product4": "API",
+                "footer.resources": "Resources",
+                "footer.resources1": "Documentation",
+                "footer.resources2": "Guides",
+                "footer.resources3": "Blog",
+                "footer.resources4": "Status",
+                "footer.company": "Company",
+                "footer.company1": "About",
+                "footer.company2": "Careers",
+                "footer.company3": "Partners",
+                "footer.company4": "Contact",
+                "footer.legal": "Legal",
+                "footer.legal1": "Privacy",
+                "footer.legal2": "Terms",
+                "footer.legal3": "Compliance",
+                "footer.copyright": "© <span id=\"copyright-year-val\">YEAR_PLACEHOLDER</span> Dataoorts. All rights reserved." 
+            },
+            ru: {
+                "nav.home": "Облако",
+                "nav.features": "Возможности",
+                "nav.gpus": "GPU",
+                "nav.pricing": "Цены",
+                "nav.contact": "Контакты",
+                "nav.login": "Войти",
+                "nav.signup": "Регистрация",
+                "hero.title": "Мощное GPU Облако для ИИ и HPC в России",
+                "hero.subtitle": "Разверните новейшие GPU NVIDIA H100, H200, A100 80ГБ, RTX A6000 и RTX 4000 за секунды с нашей высокопроизводительной облачной инфраструктурой от Dataoorts",
+                "hero.cta1": "Начать бесплатно",
+                "hero.cta2": "Посмотреть цены",
+                "trusted.title": "Нам доверяют более 10 тысяч разработчиков по всему миру и в России.",
+                "features.subtitle": "Возможности",
+                "features.title": "Почему выбирают наше GPU Облако",
+                "features.1.title": "Сверхбыстрое развертывание",
+                "features.1.desc": "Запускайте GPU инстансы менее чем за 60 секунд с нашей оптимизированной инфраструктурой и готовыми шаблонами.",
+                "features.2.title": "Глобальные дата-центры",
+                "features.2.desc": "Головной офис в Индии, безопасные дата-центры в Индии и Европе.",
+                "features.3.title": "Высокая производительность",
+                "features.3.desc": "Низколатентные соединения NVLink между GPU и высокоскоростная сеть для распределенных нагрузок.",
+                "features.4.title": "Гибкие конфигурации",
+                "features.4.desc": "Комбинируйте GPU, CPU, RAM и хранилище для создания идеальной конфигурации для вашей рабочей нагрузки.",
+                "gpus.subtitle": "NVIDIA GPU",
+                "gpus.title": "Новейшие GPU Ускорители",
+                "gpus.desc": "Выберите из нашего ассортимента мощных GPU NVIDIA, оптимизированных для ИИ, HPC, рендеринга и многого другого",
+                "gpus.h100.specs": "80ГБ PCIe | Пропускная способность 4.8ТБ/с",
+                "gpus.h100.1": "Transformer Engine для 9x ускорения обучения ИИ",
+                "gpus.h100.2": "NVLink 4-го поколения на 900ГБ/с",
+                "gpus.h100.3": "Инструкции DPX для динамического программирования",
+                "gpus.h200.specs": "141ГБ HBM3 | Пропускная способность 4.8ТБ/с",
+                "gpus.h200.1": "В 1.8 раза быстрее H100 для инференса LLM",
+                "gpus.h200.2": "Память HBM3 объемом 141ГБ",
+                "gpus.h200.3": "Оптимизировано для больших языковых моделей",
+                "gpus.a100_80gb.specs": "80ГБ PCIe | Пропускная способность 2ТБ/с",
+                "gpus.a100.1": "Тензорные ядра 3-го поколения",
+                "gpus.a100.2": "Технология Multi-Instance GPU (MIG)",
+                "gpus.a100.3": "Отраслевой стандарт для нагрузок ИИ",
+                "gpus.rtxa6000.name": "NVIDIA RTX A6000",
+                "gpus.rtxa6000.specs": "48ГБ VRAM | Пропускная способность 768ГБ/с",
+                "gpus.rtxa6000.1": "Мощная профессиональная графика",
+                "gpus.rtxa6000.2": "Идеально для рендеринга, симуляций и ИИ",
+                "gpus.rtxa6000.3": "Большой объем видеопамяти 48ГБ для сложных наборов данных",
+                "gpus.rtx4000.specs": "24ГБ VRAM | Пропускная способность 448ГБ/с",
+                "gpus.rtx4000.1_vram": "Видеопамять 24ГБ GDDR6",
+                "gpus.rtx4000.2": "Экономичное решение для дизайна и САПР",
+                "gpus.rtx4000.3": "Архитектура Ada Lovelace",
+                "gpus.custom.title": "Пользовательская конфигурация",
+                "gpus.custom.desc": "Создайте свою идеальную GPU-установку",
+                "gpus.custom.1": "Комбинируйте разные модели GPU",
+                "gpus.custom.2": "Выберите CPU, RAM и хранилище",
+                "gpus.custom.3": "Выделенные сетевые опции",
+                "gpus.custom.contact": "Связаться с отделом продаж",
+                "gpus.viewpricing": "Посмотреть цены",
+                "pricing.subtitle": "Цены",
+                "pricing.title": "Простые и прозрачные цены",
+                "pricing.desc_hourly": "Платите только за то, что используете, с почасовой оплатой. Скидки доступны при долгосрочных обязательствах.",
+                "pricing.period.hourly": "/час",
+                "pricing.h100.title": "NVIDIA H100",
+                "pricing.h100.desc": "Самый мощный ускоритель ИИ",
+                "pricing.h100.1": "Память 80ГБ PCIe",
+                "pricing.h100.2": "Пропускная способность памяти 4.8ТБ/с",
+                "pricing.h100.3": "Transformer Engine",
+                "pricing.h200.title": "NVIDIA H200",
+                "pricing.h200.desc": "Лучшее для больших языковых моделей",
+                "pricing.h200.1": "Память 141ГБ HBM3",
+                "pricing.h200.2": "Пропускная способность памяти 4.8ТБ/с",
+                "pricing.h200.3": "В 1.8 раза быстрее H100",
+                "pricing.a100_80gb.title": "NVIDIA A100 80ГБ",
+                "pricing.a100_80gb.desc": "Отраслевой стандарт для ИИ (80ГБ)",
+                "pricing.a100_80gb.1": "Память 80ГБ PCIe",
+                "pricing.a100_80gb.2": "Пропускная способность памяти 2ТБ/с",
+                "pricing.a100_80gb.3": "Технология MIG",
+                "pricing.rtxa6000.title": "NVIDIA RTX A6000",
+                "pricing.rtxa6000.desc": "Профессиональная графика и вычисления",
+                "pricing.rtxa6000.1": "Память 48ГБ VRAM",
+                "pricing.rtxa6000.2": "Пропускная способность памяти 768ГБ/с",
+                "pricing.rtxa6000.3": "Идеально для создателей и инженеров",
+                "pricing.rtx4000.title": "NVIDIA RTX 4000",
+                "pricing.rtx4000.desc": "Экономичное решение для дизайна",
+                "pricing.rtx4000.1_vram": "Память 24ГБ VRAM",
+                "pricing.rtx4000.2": "Пропускная способность памяти 448ГБ/с",
+                "pricing.rtx4000.3": "Архитектура Ada Lovelace",
+                "pricing.deploy": "Развернуть сейчас",
+                "pricing.full.title": "Все детали ценообразования",
+                "pricing.full.desc": "Посмотрите все конфигурации и опции",
+                "pricing.full.link": "Посмотреть полные цены",
+                "testimonials.title": "Отзывы",
+                "testimonials.subtitle": "Что говорят наши клиенты",
+                "testimonials.1": "\"Инстансы H100 значительно сократили время обучения наших моделей. Инфраструктура и поддержка Dataoorts были критически важны для нужд нашего проекта.\"",
+                "testimonials.2": "\"Мы перевели весь наш рендеринг на инстансы RTX A6000 от Dataoorts. Производительность выдающаяся, а их команда поддержки очень отзывчива.\"",
+                "testimonials.3": "\"Возможность быстро масштабироваться с GPU H200 для инференса наших LLM изменила правила игры. Dataoorts предлагает отличное соотношение цена/производительность.\"",
+                "cta.ready": "Готовы начать?",
+                "cta.signup": "Зарегистрируйтесь для бесплатного пробного периода уже сегодня.",
+                "cta.button": "Начать",
+                "contact.title": "Контакты",
+                "contact.subtitle": "Свяжитесь с нами",
+                "contact.desc": "Есть вопросы о наших GPU облачных сервисах? Наша команда здесь, чтобы помочь.",
+                "contact.form.sales_title": "Запросы в отдел продаж",
+                "contact.form.sales_desc": "По вопросам продаж, пожалуйста, используйте форму ниже:",
+                "contact.info.title": "Контактная информация",
+                "contact.info.support_email_intro": "Техническая поддержка:",
+                "contact.info.general_email_intro": "Общие вопросы:",
+                "contact.info.phone": "07985000709",
+                "contact.info.address": "Праяградж, Индия - 211013",
+                "faq.title": "ЧаВо",
+                "faq.subtitle": "Часто задаваемые вопросы",
+                "faq.1.question": "Где расположены ваши дата-центры?",
+                "faq.1.answer": "Наши основные дата-центры расположены в Индии и Европе, обеспечивая надежное глобальное покрытие.",
+                "faq.2.question": "Какие способы оплаты вы принимаете?",
+                "faq.2.answer": "Мы принимаем все основные кредитные карты, <strong>криптовалютные платежи</strong>, PayPal, UPI и банковский перевод.",
+                "faq.3.question": "Могу ли я получить скидку за долгосрочное использование?",
+                "faq.3.answer": "Да, мы предлагаем значительные скидки на зарезервированные инстансы с обязательствами на 1 или 3 года. Свяжитесь с нашим отделом продаж для получения индивидуального ценообразования.",
+                "faq.4.question": "Как быстро я могу развернуть GPU инстансы?",
+                "faq.4.answer": "Большинство GPU инстансов доступны для развертывания в течение 60 секунд через нашу веб-консоль или API.",
+                "faq.5.question": "Какие операционные системы вы поддерживаете?",
+                "faq.5.answer": "Мы поддерживаем Ubuntu, CentOS, Windows Server и специализированные образы для ИИ/ML с предустановленными драйверами и фреймворками.",
+                "faq.6.question": "Доступна ли техническая поддержка?",
+                "faq.6.answer": "Да, мы предоставляем круглосуточную техническую поддержку на английском и русском языках по электронной почте (help@dataoorts.com), в чате и по телефону для всех клиентов.",
+                "footer.product": "Продукт",
+                "footer.product1": "GPU Облако",
+                "footer.product2": "Цены",
+                "footer.product3": "Возможности",
+                "footer.product4": "API",
+                "footer.resources": "Ресурсы",
+                "footer.resources1": "Документация",
+                "footer.resources2": "Руководства",
+                "footer.resources3": "Блог",
+                "footer.resources4": "Статус",
+                "footer.company": "Компания",
+                "footer.company1": "О нас",
+                "footer.company2": "Карьера",
+                "footer.company3": "Партнеры",
+                "footer.company4": "Контакты",
+                "footer.legal": "Юридическая информация",
+                "footer.legal1": "Конфиденциальность",
+                "footer.legal2": "Условия",
+                "footer.legal3": "Соответствие",
+                "footer.copyright": "© <span id=\"copyright-year-val\">YEAR_PLACEHOLDER</span> Dataoorts. Все права защищены."
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const enButton = document.getElementById('en-btn');
+            const ruButton = document.getElementById('ru-btn');
+            const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+            const htmlTag = document.documentElement;
+
+            const yearPlaceholder = "YEAR_PLACEHOLDER";
+            const currentYear = new Date().getFullYear().toString();
+
+            const setLanguage = (lang) => {
+                elementsToTranslate.forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        let translatedText = translations[lang][key];
+                        if (key === "footer.copyright") {
+                            translatedText = translatedText.replace(yearPlaceholder, currentYear);
+                        }
+                        el.innerHTML = translatedText; 
+                    }
+                });
+                htmlTag.setAttribute('lang', lang);
+                localStorage.setItem('preferredLanguage', lang);
+
+                if (lang === 'ru') {
+                    ruButton.classList.remove('bg-gray-200', 'text-gray-700');
+                    ruButton.classList.add('bg-blue-600', 'text-white');
+                    enButton.classList.remove('bg-blue-600', 'text-white');
+                    enButton.classList.add('bg-gray-200', 'text-gray-700');
+                } else {
+                    enButton.classList.remove('bg-gray-200', 'text-gray-700');
+                    enButton.classList.add('bg-blue-600', 'text-white');
+                    ruButton.classList.remove('bg-blue-600', 'text-white');
+                    ruButton.classList.add('bg-gray-200', 'text-gray-700');
+                }
+                 updateAllPrices(); 
+            };
+
+            enButton.addEventListener('click', () => setLanguage('en'));
+            ruButton.addEventListener('click', () => setLanguage('ru'));
+
+            let initialLang = 'ru'; 
+            const preferredLanguage = localStorage.getItem('preferredLanguage');
+            if (preferredLanguage && translations[preferredLanguage]) {
+                initialLang = preferredLanguage;
+            }
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuItems = document.getElementById('mobile-menu-items');
+            const mobileMenuOpenIcon = mobileMenuButton.querySelector('svg.block');
+            const mobileMenuCloseIcon = mobileMenuButton.querySelector('svg.hidden');
+
+            mobileMenuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenuItems.classList.toggle('hidden');
+                mobileMenuOpenIcon.classList.toggle('hidden');
+                mobileMenuCloseIcon.classList.toggle('hidden');
+            });
+
+            const gpuPrices = {
+                h100: { hourly: 2.20 }, 
+                h200: { hourly: 2.40 },
+                a100: { hourly: 1.60 },
+                rtxa6000: { hourly: 0.60 },
+                rtx4000: { hourly: 0.18 }
+            };
+
+            function updateAllPrices() {
+                const currentLang = htmlTag.getAttribute('lang') || 'ru';
+                
+                Object.keys(gpuPrices).forEach(gpuKey => {
+                    const priceEl = document.getElementById(`${gpuKey}-price`);
+                    const periodEl = document.getElementById(`${gpuKey}-period`);
+                    if (priceEl && periodEl) {
+                        let priceValue = gpuPrices[gpuKey].hourly;
+                        const formattedPrice = priceValue.toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        priceEl.textContent = `$${formattedPrice}`;
+                    }
+                });
+            }
+            
+            const navLinks = document.querySelectorAll('nav a.nav-link');
+            function updateActiveNavLinks() {
+                let currentHash = window.location.hash;
+                if (!currentHash && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html') || window.location.pathname.toLowerCase().includes('dataoorts.com'))) {
+                     currentHash = '#'; 
+                }
+                 if (currentHash === '#' && link.getAttribute('href') === 'https://dataoorts.com') { // Special case for home link
+                    isActive = true;
+                }
+                
+                navLinks.forEach(link => {
+                    const linkHref = link.getAttribute('href');
+                    let isActive = false;
+
+                    if (linkHref === 'https://dataoorts.com' && (currentHash === '#' || !currentHash)) {
+                        isActive = true;
+                    } else if (linkHref.startsWith('#') && linkHref === currentHash) {
+                        isActive = true;
+                    }
+                    
+                    if (isActive) {
+                        link.classList.add('active', 'text-primary');
+                        link.classList.remove('text-gray-500', 'text-gray-900'); 
+                    } else {
+                        link.classList.remove('active', 'text-primary');
+                        if (linkHref === 'https://dataoorts.com') { 
+                            link.classList.add('text-gray-900');
+                            link.classList.remove('text-gray-500');
+                        } else { 
+                            link.classList.add('text-gray-500');
+                            link.classList.remove('text-gray-900');
+                        }
+                    }
+
+                    const mobileLink = document.querySelector(`#mobile-menu-items a[href="${linkHref}"]`);
+                    if (mobileLink) {
+                        if (isActive) mobileLink.classList.add('text-primary', 'bg-blue-50');
+                        else mobileLink.classList.remove('text-primary', 'bg-blue-50');
+                    }
+                });
+            }
+
+            setLanguage(initialLang); 
+            updateActiveNavLinks(); 
+            window.addEventListener('hashchange', updateActiveNavLinks);
+        });
+    </script>
+</body>
+</html>
