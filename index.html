@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dataoorts - GPU Облачные вычисления для России | GPU Cloud in Russia - H100, H200, A100, RTX A6000, RTX 4000</title>
+    <title>Dataoorts - GPU Облачные вычисления для России | GPU Облако в России - H100, H200, A100 80GB, RTX A6000, RTX 4000</title>
     <meta name="description" content="Высокопроизводительные облачные GPU решения в России. Мгновенное развертывание NVIDIA H100, H200, A100 80GB, RTX A6000 и RTX 4000 по конкурентным ценам.">
     <meta name="keywords" content="GPU облако Россия, H100 облако, H200 облако, A100 80GB облако, RTX A6000 облако, RTX 4000 облако, Российские GPU серверы, ИИ облачные вычисления Россия, Dataoorts">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -521,7 +521,7 @@
                             </div>
                             <p class="mt-5 text-base text-gray-600" data-i18n="pricing.rtxa6000.desc">Pro-grade graphics & compute</p>
                             <ul class="mt-6 space-y-3">
-                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.1">48GB  VRAM</p></li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.1">48GB VRAM</p></li>
                                 <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.2">768GB/s Memory Bandwidth</p></li>
                                 <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i><p class="text-sm text-gray-700" data-i18n="pricing.rtxa6000.3">Perfect for creators & engineers</p></li>
                             </ul>
@@ -961,7 +961,7 @@
                 "gpus.rtxa6000.2": "Идеально для рендеринга, симуляций и ИИ",
                 "gpus.rtxa6000.3": "Большой объем видеопамяти 48ГБ для сложных наборов данных",
                 "gpus.rtx4000.specs": "24ГБ VRAM | Пропускная способность 448ГБ/с",
-                "gpus.rtx4000.1_vram": "Видеопамять 24ГБ GDDR6",
+                "gpus.rtx4000.1_vram": "24ГБ видеопамяти", // Corrected
                 "gpus.rtx4000.2": "Экономичное решение для дизайна и САПР",
                 "gpus.rtx4000.3": "Архитектура Ada Lovelace",
                 "gpus.custom.title": "Пользовательская конфигурация",
@@ -992,12 +992,12 @@
                 "pricing.a100_80gb.3": "Технология MIG",
                 "pricing.rtxa6000.title": "NVIDIA RTX A6000",
                 "pricing.rtxa6000.desc": "Профессиональная графика и вычисления",
-                "pricing.rtxa6000.1": "Память 48ГБ VRAM",
+                "pricing.rtxa6000.1": "48ГБ видеопамяти", // Corrected
                 "pricing.rtxa6000.2": "Пропускная способность памяти 768ГБ/с",
                 "pricing.rtxa6000.3": "Идеально для создателей и инженеров",
                 "pricing.rtx4000.title": "NVIDIA RTX 4000",
                 "pricing.rtx4000.desc": "Экономичное решение для дизайна",
-                "pricing.rtx4000.1_vram": "Память 24ГБ VRAM",
+                "pricing.rtx4000.1_vram": "24ГБ видеопамяти", // Corrected
                 "pricing.rtx4000.2": "Пропускная способность памяти 448ГБ/с",
                 "pricing.rtx4000.3": "Архитектура Ada Lovelace",
                 "pricing.deploy": "Развернуть сейчас",
@@ -1008,7 +1008,7 @@
                 "testimonials.subtitle": "Что говорят наши клиенты",
                 "testimonials.1": "\"Инстансы H100 значительно сократили время обучения наших моделей. Инфраструктура и поддержка Dataoorts были критически важны для нужд нашего проекта.\"",
                 "testimonials.2": "\"Мы перевели весь наш рендеринг на инстансы RTX A6000 от Dataoorts. Производительность выдающаяся, а их команда поддержки очень отзывчива.\"",
-                "testimonials.3": "\"Возможность быстро масштабироваться с GPU H200 для инференса наших LLM изменила правила игры. Dataoorts предлагает отличное соотношение цена/производительность.\"",
+                "testimonials.3": "\"Возможность быстро масштабироваться с GPU H200 для файн-тюнинга наших LLM изменила правила игры. Dataoorts предлагает отличное соотношение цена/производительность.\"", // Corrected
                 "cta.ready": "Готовы начать?",
                 "cta.signup": "Зарегистрируйтесь для бесплатного пробного периода уже сегодня.",
                 "cta.button": "Начать",
@@ -1146,27 +1146,36 @@
                 if (!currentHash && (window.location.pathname === '/' || window.location.pathname.endsWith('index.html') || window.location.pathname.toLowerCase().includes('dataoorts.com'))) {
                      currentHash = '#'; 
                 }
-                 if (currentHash === '#' && link.getAttribute('href') === 'https://dataoorts.com') { // Special case for home link
-                    isActive = true;
-                }
                 
                 navLinks.forEach(link => {
                     const linkHref = link.getAttribute('href');
                     let isActive = false;
 
-                    if (linkHref === 'https://dataoorts.com' && (currentHash === '#' || !currentHash)) {
-                        isActive = true;
-                    } else if (linkHref.startsWith('#') && linkHref === currentHash) {
-                        isActive = true;
+                    // Adjusted logic: The main 'Cloud' link (https://russia.dataoorts.com) should be active if no hash or #features, #gpus, #pricing, #contact
+                    // The "Features", "GPUs", "Pricing", "Contact" links on dataoorts.com are external here.
+                    // This page's internal nav links are for sections like #features, #gpus, #pricing, #contact.
+                    // The "Cloud" nav link (https://russia.dataoorts.com) on this page should be the "active" one for the base page.
+                    
+                    if (linkHref === 'https://russia.dataoorts.com') { // This is the "Home" link for this specific page
+                        if (currentHash === '#' || !currentHash || ['#features', '#gpus', '#pricing', '#contact'].includes(currentHash)) {
+                           // Check if current page is effectively the russia.dataoorts.com page
+                           if (window.location.href.startsWith('https://russia.dataoorts.com') || window.location.href.includes('localhost') || window.location.href.includes('file:')) { // for local testing
+                                isActive = true;
+                           }
+                        }
+                    } else if (linkHref.startsWith('#') && linkHref === currentHash) { // For internal section links, not present in this nav structure
+                        // This case won't be hit with the current nav structure as section links are not in the main nav.
+                        // If they were, this would handle it.
                     }
                     
                     if (isActive) {
                         link.classList.add('active', 'text-primary');
-                        link.classList.remove('text-gray-500', 'text-gray-900'); 
+                        link.classList.remove('text-gray-500'); 
+                        if(linkHref !== 'https://russia.dataoorts.com') link.classList.remove('text-gray-900');
                     } else {
                         link.classList.remove('active', 'text-primary');
-                        if (linkHref === 'https://dataoorts.com') { 
-                            link.classList.add('text-gray-900');
+                        if (linkHref === 'https://russia.dataoorts.com') { 
+                            link.classList.add('text-gray-900'); // Default style for the "home" link if not active
                             link.classList.remove('text-gray-500');
                         } else { 
                             link.classList.add('text-gray-500');
@@ -1174,8 +1183,12 @@
                         }
                     }
 
+                    // Mobile menu active state (assuming similar logic needed if mobile nav mirrored desktop section links)
+                    // For now, mobile links are external or to main page, so active state is less complex.
                     const mobileLink = document.querySelector(`#mobile-menu-items a[href="${linkHref}"]`);
                     if (mobileLink) {
+                         // Simplified: if the desktop link is active, make mobile active.
+                         // This might need refinement if mobile nav has different structure or purpose.
                         if (isActive) mobileLink.classList.add('text-primary', 'bg-blue-50');
                         else mobileLink.classList.remove('text-primary', 'bg-blue-50');
                     }
@@ -1185,6 +1198,8 @@
             setLanguage(initialLang); 
             updateActiveNavLinks(); 
             window.addEventListener('hashchange', updateActiveNavLinks);
+            // Call on load as well in case there's a hash initially
+            window.addEventListener('load', updateActiveNavLinks); 
         });
     </script>
 </body>
